@@ -1,0 +1,15 @@
+<% include partials/header %>
+<table>
+  <th>ID</th><th>TITLE</th><th>ARTIST</th><th>ALBUM</th>
+  <% songs.forEach(function(song){%>
+    <tr>
+      <td><%=song._id%></td>
+      <td><%=song.title%></td>
+      <td><%=song.artist%></td>
+      <td><%=song.album%></td>
+      <td><a href="/songs/<%=song._id%>">Check this song</a></td>
+    </tr>
+  <%})%>
+
+</table>
+<% include partials/footer %>

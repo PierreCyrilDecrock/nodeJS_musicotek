@@ -1,0 +1,17 @@
+<% include partials/header %>
+  <% if(error){%>
+    <div><%=message%><div>
+  <%}%>
+  <form action="/songs" method="post">
+    <label>Titre : </label>
+    <input type="text" name="title"></input>
+    <label>Artiste :</label>
+    <input type="text" name="artist"></input>
+    <label>Album :</label>
+    <input type="text" name="album"></input>
+    <label>Year : </label>
+    <input type="number" name="year"></input>
+    <input type="submit" name="submit"></input>
+  </form>
+<% include partials/footer %>
+
