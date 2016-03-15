@@ -5,7 +5,10 @@ var userSchema = mongoose.Schema({
  username: {type: String, required: true},
  password: {type: String, required: true, select: false},
  displayName: {type: String, required: true},
- favoriteSongs: [String],
+ mail: {type: String, required: true},
+ favoriteSongs: [mongoose.Schema.Types.ObjectId],
+ friendsRequest: [mongoose.Schema.Types.ObjectId],
+ friendsList: [mongoose.Schema.Types.ObjectId],
  createdAt: {type: Date, required: true, 'default': Date.now}
 });
 

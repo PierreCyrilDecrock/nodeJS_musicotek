@@ -2,7 +2,7 @@
   <% if(error){%>
     <div><%=message%><div>
   <%}%>
-  <form action="/songs" method="post">
+  <form id="add" action="/songs" method="post">
     <label>Titre : </label>
     <input type="text" name="title"></input>
     <label>Artiste :</label>
@@ -11,7 +11,9 @@
     <input type="text" name="album"></input>
     <label>Year : </label>
     <input type="number" name="year"></input>
-    <input type="submit" name="submit"></input>
+    <label>Bpm : </label>
+    <input type="number" name="bpm"></input>
+    <button form="add" type="submit" class="btn btn-primary">Ajouter</button>
   </form>
 <% include partials/footer %>
 

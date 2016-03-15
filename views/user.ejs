@@ -1,0 +1,89 @@
+<% include partials/header %>
+
+<div class="page-header">
+    <h1><%= profile.username %> - <%= profile.displayName %> <small>(<%= profile.mail %>)</small></h1>
+
+    <% if ( !(isRequest || isFriend) && !(currentUser._id == profile._id) ) { %>
+
+      <form id="requestFriend" action="/users/<%=profile._id%>/request" method="post">
+        <button form="requestFriend" type="submit" class="btn btn-primary">Ajouter en ami</button>
+      </form>
+
+    <%}%>
+
+</div>
+<% if (currentUser._id == profile._id) { %>
+<div class="col-lg-12">
+    <h2>Demande d'amis <small><%= friendsRequest.length%> trouvé(s)</small></h2>
+
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Request</th>
+            </tr>
+        </thead>
+        <% friendsRequest.forEach((request) => {%>
+            <tr">
+              <td><a href="/users/<%= request._id %>"><%= request.username %></a></td>
+              <td>
+                <form id="acceptRequest" action="/users/<%=request._id%>/accept" method="post">
+                  <button form="acceptRequest" type="submit" class="btn btn-primary">Ajouter</button>
+                </form>
+              </td>
+              <td>
+                <form id="declineRequest" action="/users/<%=request._id%>/decline?_method=delete" method="post">
+                  <button form="declineRequest" type="submit" class="btn btn-danger">Refuser</button>
+                </form>
+              </td>
+
+            </tr>
+        <% }) %>
+    </table>
+</div>
+<div class="col-lg-12">
+    <h2>Mes amis <small><%= friendsList.length%> trouvé(s)</small></h2>
+
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Friends</th>
+            </tr>
+        </thead>
+        <% friendsList.forEach((friend) => {%>
+            <tr">
+              <td><a href="/users/<%= friend._id %>"><%= friend.username %></a></td>
+            </tr>
+        <% }) %>
+    </table>
+</div>
+<% }%>
+
+
+<div class="col-lg-12">
+  <h2>Chansons favoris <small><%=favoriteSongs.length%> trouvée(s)</small></h2>
+
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Chanson</th>
+      </tr>
+    </thead>
+    <% favoriteSongs.forEach((song) => {%>
+      <tr>
+        <% if (currentUser._id == profile._id) { %>
+          <td><form id="deleteFavorite" action="/songs/<%=song._id%>/deleteFavorite?_method=delete" method="post">
+            <button form="deleteFavorite" type="submit" class="btn btn-primary">Supprimer</button>
+          </form></td>
+        <%}%>
+        <td><a href="/songs/<%= song._id %>"><%= song.title %></a> (<%= song.artist %>)</td>
+      </tr>
+    <% }) %>
+    <% if (currentUser._id == profile._id && favoriteSongs.length > 0) { %>
+      <td><form id="deleteAllFavorite" action="/songs/deleteAllFavorite?_method=delete" method="post">
+        <button form="deleteAllFavorite" type="submit" class="btn btn-primary">Supprimer tous les favoris</button>
+      </form></td>
+    <%}%>
+  </table>
+</div>
+
+<% include partials/footer %>

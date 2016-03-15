@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
   if (req.accepts('text/html')) {
     res.render('login');
   }
@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 
 router.post('/',
   passport.authenticate('local', {
-    successRedirect: '/songs',
+    successRedirect: '/',
     failureRedirect: '/login'
   })
 );

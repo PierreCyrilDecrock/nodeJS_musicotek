@@ -1,5 +1,5 @@
 <% include partials/header %>
-  <form action="/login" method="post">
+  <form id="login" action="/login" method="post">
     <div>
       <label>Username:</label>
       <input type="text" name="username"/>
@@ -9,7 +9,7 @@
       <input type="password" name="password"/>
     </div>
     <div>
-      <input type="submit" value="Se connecter"/>
+      <button form="login" type="submit" class="btn btn-primary">Se connecter</button>
     </div>
   </form>
   <a href="/signup">Se registrer</a>

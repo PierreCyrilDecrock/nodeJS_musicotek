@@ -1,12 +1,45 @@
 <% include partials/header %>
   <h1><%=song.title%></h1>
   <hr/>
-  Album : <%=song.album%>
-  Artist : <%=song.artist%>
+  Album : <%=song.album%></br>
+  Artist : <%=song.artist%></br>
   <% if (song.year) { %>
-  Year : <%=song.year%>
+  Year : <%=song.year%></br>
   <% } %>
   <% if (song.bpm) { %>
-  BPM : <%=song.bpm%>
+  BPM : <%=song.bpm%></br>
   <% } %>
+  <hr/>
+  Noter la chanson :
+    <% if (!rank) { %>
+    <form id="vote" class="form-inline" action="/songs/<%=song._id%>/rank" method="post">
+      <div class="form-group">
+        <label>Vote :</label>
+        <select class="form-control" id="rank" name=rank>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+      </div>
+
+      <button form="vote" type="submit" class="btn btn-primary">Noter</button>
+    </form>
+    <%} else {%>
+      <%= rank.rank %>
+    <%}%>
+  <hr/>
+
+  <div>
+    <% if (!isFavorite) { %>
+      <form id="favorise" action="/songs/<%=song._id%>/addFavorite" method="post">
+         Ajouter comme favorite : <button form="favorise" type="submit" class="btn btn-primary">Favoris</button>
+      </form>
+    <%} else {%>
+      Cette musique fait déjà partie de vos favoris ;)
+    <%}%>
+
+  </div>
+
 <% include partials/footer %>

@@ -5,7 +5,7 @@ var _ = require('lodash');
 var bcrypt = require('bcrypt');
 
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
   var err = (req.session.err) ? req.session.err : null;
 
   if (req.accepts('text/html')) {
@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
   }
 });
 
-var bodyVerificator = function(req, res, next) {
+var bodyVerificator = (req, res, next) => {
   var attributes = _.keys(req.body);
   var mandatoryAttributes = ['username', 'password', 'displayName'];
   var missingAttributes = _.difference(mandatoryAttributes, attributes);
@@ -41,10 +41,10 @@ var bodyVerificator = function(req, res, next) {
   }
 };
 
-router.post('/', bodyVerificator, function(req, res) {
+router.post('/', bodyVerificator, (req, res) => {
   if (req.accepts('application/json') || req.accepts('text/html')) {
     UserService.findOneByQuery({username: req.username})
-      .then(function(user) {
+      .then((user) => {
         if (user) {
           res.send(409, {err: 'Existing user'});
           return;
@@ -54,7 +54,7 @@ router.post('/', bodyVerificator, function(req, res) {
           var hash = bcrypt.hashSync(req.body.password, salt);
           req.body.password = hash;
           UserService.createUser(req.body)
-          .then(function(user) {
+          .then((user) => {
             if (req.accepts('text/html')) {
               return res.render('registered', {user: user});
             }

@@ -41,10 +41,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 var verifyAuth = function(req, res, next) {
+  res.locals.user_session = false;
+  res.locals.user_admin = false;
+  res.locals.currentUser = false;
   if (req.originalUrl === '/signup' || req.originalUrl === '/login') {
     return next();
   }
   if (req.isAuthenticated()) {
+    res.locals.user_session = true;
+    res.locals.user_admin = (req.user.username === 'admin');
+    res.locals.currentUser = req.user;
     return next();
   }
   if (req.accepts('text/html')) {
@@ -54,6 +60,7 @@ var verifyAuth = function(req, res, next) {
     res.set('Location', '/login');
     return res.status(401).send({err: 'User should be logged'});
   }
+
 };
 
 
@@ -76,6 +83,11 @@ app.use('/users', users);
 app.use('/songs', songs);
 app.use('/signup', signup);
 app.use('/login', login);
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/login');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
