@@ -137,6 +137,7 @@ router.post('/:id/rank', (req, res) => {
 
           if (rank) {
             res.status(403).send();
+              // je mettrais plutôt un 409 Conflict
             return;
           }
 
@@ -173,7 +174,8 @@ router.post('/:id/rank', (req, res) => {
 })
 
 router.post('/:id/addFavorite', (req, res) => {
-
+    // l'url ne fait reference à l'utilisateur qu'on va modifier, ça aurait pu être POST /users/me/songs/:song_id/favorites/
+    // cependant la logique est ok
     UsersService.addFavoritesToUser(req.user._id, req.params.id)
       .then((user) => {
         req.logIn(user, (error) => {

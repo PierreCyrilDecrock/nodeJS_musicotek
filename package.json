@@ -16,6 +16,8 @@
     "express-session": "^1.13.0",
     "jade": "~1.11.0",
     "kerberos": "0.0.18",
+    "lodash": "*",
+    //lodash manque comme dependence, cela genere une exception lorsqu'on lance l'application après avoir fait un npm i
     "mongodb": "^2.1.4",
     "mongoose": "^4.3.7",
     "morgan": "~1.6.1",
