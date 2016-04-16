@@ -9,6 +9,7 @@ var userSchema = mongoose.Schema({
  favoriteSongs: [mongoose.Schema.Types.ObjectId],
  friendsRequest: [mongoose.Schema.Types.ObjectId],
  friendsList: [mongoose.Schema.Types.ObjectId],
+ // :+1
  createdAt: {type: Date, required: true, 'default': Date.now}
 });
 

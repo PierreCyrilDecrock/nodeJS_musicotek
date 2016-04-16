@@ -90,6 +90,7 @@ router.post('/:id/request', (req, res) => {
 
     UsersService.addFriendsRequestToUser(req.params.id, req.user._id)
       .then((user) => {
+          // sit u vas pas utiliser user dans ton bloc, vaut mieux pas le definir alors
         req.logIn(req.user, (error) => {
           if (!error) {
             if (req.accepts('text/html')) {
